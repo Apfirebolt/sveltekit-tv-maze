@@ -32,7 +32,7 @@
             <a
               href={item.url}
               data-sveltekit-prefetch
-              class="text-white px-3 py-2 rounded transition-all duration-300 ease-in-out group-hover:bg-bermuda group-hover:text-black group-hover:scale-105"
+              class="text-white px-3 py-2 rounded transition-all duration-300 ease-in-out group-hover:bg-bermuda group-hover:text-black hover:bg-white hover:rounded-2xl group-hover:scale-105"
             >
               {item.name}
             </a>

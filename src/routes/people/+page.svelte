@@ -85,14 +85,15 @@
             <h1 class="mb-4 text-4xl font-bold md:text-6xl">
               {displayedText}
             </h1>
-            <p
+            <div class="bg-primary rounded-lg p-4">
+              <p
               class="mb-6 text-lg md:text-xl"
               in:fly={{ x: 500, duration: 500, delay: 200 }}
             >
               Discover your favorite people in the TV industry
             </p>
             <div
-              class="flex items-center space-x-4 mb-6 min-w-xl bg-primary rounded-lg p-4"
+              class="flex items-center space-x-4 mb-6 min-w-xl"
             >
               <input
                 type="text"
@@ -107,6 +108,9 @@
                 <Icon icon="mdi:magnify" class="text-2xl" />
               </button>
             </div>
+            </div>
+            
+            
           </div>
         </div>
       </section>
