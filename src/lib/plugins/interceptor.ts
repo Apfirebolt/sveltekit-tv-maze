@@ -10,7 +10,6 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
     (config: any) => {
         // Modify the request config if needed (e.g., add headers)
-        console.log('Request:', config);
         return config;
     },
     (error: any) => {
@@ -24,7 +23,6 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
     (response: any) => {
         // Handle successful responses
-        console.log('Response:', response);
         return response;
     },
     (error: any) => {

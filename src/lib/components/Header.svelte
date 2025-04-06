@@ -5,6 +5,7 @@
     { name: "About", url: "/about" },
     { name: "Shows", url: "/shows" },
     { name: "People", url: "/people" },
+    { name: "Updates", url: "/updates" },
   ];
   export let title: string = "TV Maze";
   let isMenuOpen = false;
