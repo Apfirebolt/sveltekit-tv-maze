@@ -3,14 +3,14 @@
   import { fly } from "svelte/transition";
   import { page } from "$app/stores";
   import apiClient from "$lib/plugins/interceptor";
-  import type { Episode } from "$lib/types/Episode";
+  import type { Season } from "$lib/types/Episode";
   import type { Show, ApiResponse } from "$lib/types/Show";
   import HeaderComponent from "$lib/components/Header.svelte";
   import FooterComponent from "$lib/components/Footer.svelte";
   import Loader from "$lib/components/Loader.svelte";
 
   let show: Show | null = null;
-  let episodes: Episode[] = [];
+  let seasons: Season[] = [];
   let loading: boolean = true;
   let error: Error | null = null;
 
@@ -36,15 +36,15 @@
     }
   }
 
-  async function getShowEpisodes() {
+  async function getShowSeasons() {
     try {
-      const response: ApiResponse<Episode[]> = await apiClient.get<Episode[]>(
-        `shows/${id}/episodes`
+      const response: ApiResponse<Season[]> = await apiClient.get<Season[]>(
+        `shows/${id}/seasons`
       );
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      episodes = response.data; // Assuming the response data is a Show object
+      seasons = response.data; // Assuming the response data is a Season object
     } catch (err) {
       error =
         err instanceof Error ? err : new Error("An unknown error occurred");
@@ -54,9 +54,9 @@
   }
 
   onMount(() => {
-    Promise.all([getShowDetails(), getShowEpisodes()])
+    Promise.all([getShowDetails(), getShowSeasons()])
       .then(() => {
-        console.log("Show details, images, and crew loaded successfully");
+        console.log("Show details and seasons loaded successfully");
       })
       .catch((err) => {
         console.error("Error loading show details:", err);
@@ -102,26 +102,26 @@
     </section>
 
     <div class="container mx-auto py-8">
-      <h2 class="text-3xl font-bold mb-4">Episodes</h2>
-      {#if episodes.length > 0}
+      <h2 class="text-3xl font-bold mb-4">Seasons</h2>
+      {#if seasons.length > 0}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {#each episodes as episode}
+          {#each seasons as season}
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              {#if episode.image}
+              {#if season.image}
                 <img
-                  src={episode.image.medium || episode.image.original}
-                  alt={episode.name}
+                  src={season.image.medium || season.image.original}
+                  alt={season.name}
                   class="w-full h-48 object-cover"
                 />
               {/if}
               <div class="p-4">
-                <h3 class="text-xl font-bold mb-2">{episode.name}</h3>
+                <h3 class="text-xl font-bold mb-2">{season.name}</h3>
                 <p class="text-gray-600 mb-2">
                   <strong>Air Date:</strong>
-                  {episode.airdate}
+                  {season.premiereDate}
                 </p>
                 <p class="text-gray-700 text-sm">
-                  {@html episode.summary || "No summary available."}
+                  {@html season.summary || "No summary available."}
                 </p>
               </div>
             </div>

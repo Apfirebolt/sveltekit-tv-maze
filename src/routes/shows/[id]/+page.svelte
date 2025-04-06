@@ -161,6 +161,14 @@
             <strong>Updated:</strong>
             {new Date(show.updated).toLocaleDateString()}
           </p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href={`/shows/${id}/seasons`} class="btn btn-primary bg-tertiary px-4 py-3 text-white">
+                View Seasons
+            </a>
+            <a href={`/shows/${id}/episodes`} class="btn btn-secondary bg-tertiary px-4 py-3 text-white">
+                View Episodes
+            </a>
+        </div>
         </div>
       </div>
   
