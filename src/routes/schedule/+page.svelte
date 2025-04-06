@@ -14,6 +14,20 @@
   let items: Schedule[] = [];
   let error: Error | null = null;
 
+  let text = "Welcome to Svelte Maze";
+  let displayedText = "";
+  let index = 0;
+
+  const typeWriter = () => {
+    if (index < text.length) {
+      displayedText += text[index];
+      index++;
+      setTimeout(typeWriter, 100);
+    }
+  };
+
+  typeWriter();
+
   const fetchSchedule = async () => {
     loading = true;
     error = null;
@@ -45,41 +59,62 @@
 
 <HeaderComponent title="TV Schedule" />
 
-<div class="p-4">
-  <div class="mb-4 flex flex-col gap-4 md:flex-row">
+<div class="p-4 bg-light">
+  <section
+    class="relative h-[500px] bg-cover bg-center"
+    style="background-image: url('https://www.hollywoodreporter.com/wp-content/uploads/2024/12/Squidgame_Unit_204_N064080.jpg?w=1296&h=730&crop=1');"
+  >
     <div
-      class="transition-all w-1/3 duration-300 p-4 bg-light rounded-lg shadow-md hover:shadow-lg"
+      class="bg-opacity-50 absolute inset-0 flex items-center justify-center bg-gradient-to-b from-black via-transparent to-black"
+      in:fly={{ x: -200, duration: 500 }}
     >
-      <label for="country" class="block mb-2 font-bold text-gray-700"
-        >Select Country:</label
-      >
-      <select
-        id="country"
-        bind:value={selectedCountry}
-        class="p-2 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-        on:change={fetchSchedule}
-      >
-        {#each countries as country}
-          <option value={country}>{country}</option>
-        {/each}
-      </select>
-    </div>
+      <div class="text-center w-full mx-auto text-white">
+        <h1 class="mb-4 text-4xl font-bold md:text-6xl">
+          {displayedText}
+        </h1>
+        <p
+          class="mb-6 text-lg md:text-xl"
+          in:fly={{ x: 500, duration: 500, delay: 200 }}
+        >
+          Discover your favorite movies and more
+        </p>
+        <div class="mb-4 gap-4 md:flex-row flex justify-center text-primary px-8">
+          <div
+            class="transition-all w-1/3 duration-300 p-4 bg-light rounded-lg shadow-md hover:shadow-lg"
+          >
+            <label for="country" class="block mb-2 font-bold text-gray-700"
+              >Select Country:</label
+            >
+            <select
+              id="country"
+              bind:value={selectedCountry}
+              class="p-2 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+              on:change={fetchSchedule}
+            >
+              {#each countries as country}
+                <option value={country}>{country}</option>
+              {/each}
+            </select>
+          </div>
 
-    <div
-      class="transition-all w-1/3 duration-300 p-4 bg-light rounded-lg shadow-md hover:shadow-lg"
-    >
-      <label for="date" class="block mb-2 font-bold text-gray-700"
-        >Select Date:</label
-      >
-      <input
-        id="date"
-        type="date"
-        bind:value={selectedDate}
-        class="p-2 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-        on:change={fetchSchedule}
-      />
+          <div
+            class="transition-all w-1/3 duration-300 p-4 bg-light rounded-lg shadow-md hover:shadow-lg"
+          >
+            <label for="date" class="block mb-2 font-bold text-gray-700"
+              >Select Date:</label
+            >
+            <input
+              id="date"
+              type="date"
+              bind:value={selectedDate}
+              class="p-2 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+              on:change={fetchSchedule}
+            />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   {#if loading}
     <Loader />
@@ -90,9 +125,9 @@
       No shows found for the selected date and country.
     </p>
   {:else}
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div class="columns-1 sm:columns-2 mt-4 lg:columns-3 gap-4">
       {#each items as show}
-        <div class="p-4 border rounded bg-white shadow">
+        <div class="mb-4 break-inside-avoid p-4 border rounded bg-white shadow">
           <h2 class="text-lg font-bold">{show.show.name}</h2>
           <p>
             Air Date: {show.airdate} | Time: {show.airtime}

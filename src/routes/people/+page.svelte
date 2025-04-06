@@ -72,7 +72,7 @@
   {:else if error}
     <p class="text-red-500">Error loading people: {error.message}</p>
   {:else}
-    <div class="bg-accent-dark">
+    <div class="bg-light">
       <section
         class="relative h-[500px] bg-cover bg-center"
         style="background-image: url('https://m.media-amazon.com/images/S/pv-target-images/830d8bb707f1461e700568a501ad23defef1dba40c697a0a29846edfb8a61f3d.png');"

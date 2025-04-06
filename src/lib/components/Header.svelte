@@ -45,7 +45,7 @@
 
   <!-- Mobile Menu -->
   <div
-    class="fixed top-0 right-0 bg-midnight text-white z-40 h-full w-1/2 transform transition-transform duration-300 ease-in-out"
+    class="fixed top-0 right-0 bg-primary text-white z-40 h-full w-1/2 transform transition-transform duration-300 ease-in-out"
     class:translate-x-0={isMenuOpen}
     class:translate-x-full={!isMenuOpen}
   >
