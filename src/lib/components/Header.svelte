@@ -3,6 +3,7 @@
   let menuItems = [
     { name: "Home", url: "/" },
     { name: "About", url: "/about" },
+    { name: "Shows", url: "/shows" },
   ];
   export let title: string = "TV Maze";
   let isMenuOpen = false;

@@ -68,6 +68,22 @@ interface Show {
   _links: Links;
 }
 
+interface ImageResolution {
+  url: string;
+  width: number;
+  height: number;
+}
+
+interface ShowImage {
+  id: number;
+  type: string;
+  main: boolean;
+  resolutions: {
+    original: ImageResolution;
+    medium?: ImageResolution; // Optional property
+  };
+}
+
 // Type for the response from your getShows function
 interface ApiResponse<T> {
   status: number;
@@ -75,4 +91,10 @@ interface ApiResponse<T> {
   // You might want to include other properties from the Response object if needed
 }
 
-export type { Show, ApiResponse };
+interface SearchResult {
+  score: number;
+  show: Show;
+}
+
+export type { Show, ShowImage, SearchResult, ApiResponse };
+

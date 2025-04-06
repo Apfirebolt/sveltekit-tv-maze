@@ -3,12 +3,13 @@
     import { fly } from "svelte/transition";
     import { page } from "$app/stores";
     import apiClient from "$lib/plugins/interceptor";
-    import type { Show, ApiResponse } from "$lib/types/Show";
+    import type { Show, ShowImage, ApiResponse } from "$lib/types/Show";
     import HeaderComponent from "$lib/components/Header.svelte";
     import FooterComponent from "$lib/components/Footer.svelte";
     import Loader from "$lib/components/Loader.svelte";
   
     let show: Show | null = null;
+    let showImages: ShowImage[] = [];
     let loading: boolean = true;
     let error: Error | null = null;
   
@@ -33,9 +34,27 @@
         loading = false;
       }
     }
+
+    async function getShowImages() {
+      try {
+        const response: ApiResponse<ShowImage[]> = await apiClient.get<ShowImage[]>(
+          `shows/${id}/images`
+        );
+        if (response.status !== 200) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        showImages = response.data; // Assuming the response data is a Show object
+      } catch (err) {
+        error =
+          err instanceof Error ? err : new Error("An unknown error occurred");
+      } finally {
+        loading = false;
+      }
+    }
   
     onMount(() => {
-      getShowDetails();
+    Promise.all([getShowDetails(), getShowImages()]);
+
     });
   </script>
   
@@ -93,6 +112,21 @@
           <p><strong>Updated:</strong> {new Date(show.updated).toLocaleDateString()}</p>
         </div>    
       </div>
+
+        <div class="container mx-auto py-8">
+            <h2 class="text-3xl font-bold mb-4">Images</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {#each showImages as image}
+                    <div class="overflow-hidden rounded-lg shadow-lg">
+                        <img
+                            src={image.resolutions.original?.url || image.resolutions.medium?.url || ''}
+                            alt=""
+                            class="w-full h-auto object-cover"
+                        />
+                    </div>
+                {/each}
+            </div>
+        </div>
     </div>
   {/if}
   
