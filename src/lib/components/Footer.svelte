@@ -3,8 +3,6 @@
     let menuItems = [
 		{ name: 'Home', url: '/' },
 		{ name: 'About', url: '/about' },
-		{ name: 'Contact', url: '/contact' },
-		{ name: 'Movies', url: '/movies' }
 	];
 </script>
 
@@ -18,7 +16,7 @@
             {/each}
         </nav>
         <p class="text-sm">
-            &copy; {year} Sveltekit Movies. All rights reserved.
+            &copy; {year} Sveltekit TV Maze. All rights reserved.
         </p>
     </div>
 </footer>
