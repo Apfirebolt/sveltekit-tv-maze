@@ -24,10 +24,17 @@ interface Person {
     };
 }
 
+interface SearchResult {
+    score: number;
+    person: Person;
+  }
+
 interface ApiResponse<T> {
     status: number;
     data: T;
     // You might want to include other properties from the Response object if needed
   }
   
-  export type { Person, ApiResponse };
+  export type { Person, SearchResult, ApiResponse };
+
+  
