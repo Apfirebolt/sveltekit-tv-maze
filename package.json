@@ -39,6 +39,7 @@
 	"dependencies": {
 		"@iconify/svelte": "^5.2.2",
 		"@types/axios": "^0.14.4",
-		"axios": "^1.20.0"
+		"axios": "^1.20.0",
+		"mongodb": "^7.6.0"
 	}
 }
